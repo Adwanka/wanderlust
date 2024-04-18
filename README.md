@@ -35,12 +35,45 @@ _I'd love for you to make the most of this project - it's all about learning, he
 3. **Install Required Dependencies**
 
    ```bash
-   npm i
+  # installs NVM (Node Version Manager)
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+  # download and install Node.js
+  nvm install 20
+
+  # verifies the right Node.js version is in the environment
+  node -v # should print `v20.12.2`
+
+  # verifies the right NPM version is in the environment
+  npm -v # should print `10.5.0`
+
+  npm i
+
    ```
 
 4. **Set up your MongoDB Database**
 
-   - Open MongoDB Compass and connect MongoDB locally at `mongodb://localhost:27017`.
+  - Import the public key used by the package management system
+    sudo apt-get install gnupg curl
+
+    curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
+    sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \
+   --dearmor
+ 
+  - Create a list file for MongoDB
+    echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+  
+  - Reload local package database
+    sudo apt-get update
+
+  - Install the MongoDB packages
+    sudo apt-get install -y mongodb-org
+
+  - Start MongoDB.
+    sudo systemctl start mongod
+
+  - Open MongoDB Compass and connect MongoDB locally at `mongodb://localhost:27017`.
 
 5. **Import sample data**
 
